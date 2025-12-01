@@ -1,6 +1,6 @@
 ﻿namespace Common
 {
-    public interface DayPuzzle
+    public interface IDayPuzzle
     {
         int SolvePart1();
         int SolvePart2();

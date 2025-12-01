@@ -1,19 +1,26 @@
 ﻿
 using Common;
 
-List<DayPuzzle> puzzles =
+List<IDayPuzzle> puzzles =
     [
-    null
+    new Day01.Puzzle(),
     ];
 
-foreach (DayPuzzle puzzle in puzzles)
+foreach (IDayPuzzle puzzle in puzzles)
 {
-    puzzle?.SolvePart1();
-    puzzle?.SolvePart2();
+    Console.WriteLine($"== {puzzle.GetType().Name} ==");
 
+    LogPart("Part 1", puzzle.SolvePart1);
+    LogPart("Part 2", puzzle.SolvePart2);
+
+    Console.WriteLine();
 }
 
-void Log(string message)
+static void LogPart(string label, Func<int> solve)
 {
-    Console.WriteLine(message);
+    var sw = System.Diagnostics.Stopwatch.StartNew();
+    int result = solve();
+    sw.Stop();
+
+    Console.WriteLine($"{label}: {result}  (in {sw.ElapsedMilliseconds} ms)");
 }
