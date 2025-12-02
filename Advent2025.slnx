@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="Common/Common.csproj" />
   <Project Path="Day01/Day01.csproj" />
+  <Project Path="Day02/Day02.csproj" Id="68682a94-6175-4f36-85b0-a787dbb62e09" />
   <Project Path="Solver/Solver.csproj" />
 </Solution>

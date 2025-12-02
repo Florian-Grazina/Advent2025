@@ -2,7 +2,7 @@
 {
     public interface IDayPuzzle
     {
-        int SolvePart1();
-        int SolvePart2();
+        long SolvePart1();
+        long SolvePart2();
     }
 }

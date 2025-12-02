@@ -4,13 +4,13 @@ namespace Day01
 {
     public class Puzzle : IDayPuzzle
     {
-        public int SolvePart1()
+        public long SolvePart1()
         {
             Part1Solver solver = new (GetInput());
             return solver.Solve();
         }
 
-        public int SolvePart2()
+        public long SolvePart2()
         {
             Part2Solver solver = new (GetInput());
             return solver.Solve();
