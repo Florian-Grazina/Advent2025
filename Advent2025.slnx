@@ -2,5 +2,6 @@
   <Project Path="Common/Common.csproj" />
   <Project Path="Day01/Day01.csproj" />
   <Project Path="Day02/Day02.csproj" Id="68682a94-6175-4f36-85b0-a787dbb62e09" />
+  <Project Path="Day03/Day03.csproj" Id="d9fdea65-4d26-43bd-bac3-31d2f7902a1f" />
   <Project Path="Solver/Solver.csproj" />
 </Solution>

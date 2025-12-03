@@ -6,13 +6,14 @@ internal class Program
     {
         List<IDayPuzzle> puzzles =
     [
-    new Day01.Puzzle(),
-    new Day02.Puzzle(),
+    //new Day01.Puzzle(),
+    //new Day02.Puzzle(),
+    new Day03.Puzzle(),
     ];
 
         foreach (IDayPuzzle puzzle in puzzles)
         {
-            Console.WriteLine($"== {puzzle.GetType().Name} ==");
+            Console.WriteLine($"== {puzzle.GetType().FullName} ==");
 
             LogPart("Part 1", puzzle.SolvePart1);
             LogPart("Part 2", puzzle.SolvePart2);
