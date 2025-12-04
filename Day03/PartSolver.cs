@@ -18,7 +18,6 @@ namespace Day03
                 foreach (string line in _input)
                 {
                     int result = GetResult(line);
-                    Console.WriteLine(result);
                     _result += result;
                 }
 
@@ -56,7 +55,39 @@ namespace Day03
 
             internal long Solve()
             {
-                return 0;
+                foreach (string line in _input)
+                {
+                    long result = GetResult(line);
+                    Console.WriteLine(result);
+                    _result += result;
+                }
+
+                return _result;
+                // low 17039474866
+            }
+
+            private long GetResult(string line)
+            {
+                int batteriesToTake = 12;
+
+                List<int> shorts = [.. line.ToArray().Select(c => short.Parse(c.ToString()))];
+                List<int> openedBatteries = [];
+
+                while(batteriesToTake > 0)
+                {
+                    List<int> subShorts = shorts.GetRange(0, shorts.Count - batteriesToTake + 1);
+
+                    int highest = subShorts.Max();
+                    int highestIndex = subShorts.IndexOf(highest);
+
+                    openedBatteries.Add(highest);
+                    batteriesToTake--;
+
+                    shorts.RemoveRange(0, highestIndex + 1);
+                }
+
+                string result = string.Join("", openedBatteries);
+                return long.Parse(result);
             }
         }
     }
