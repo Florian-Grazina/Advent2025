@@ -6,7 +6,7 @@ internal class Program
     {
         List<IDayPuzzle> puzzles =
     [
-    //new Day01.Puzzle(),
+    new Day01.Puzzle(),
     //new Day02.Puzzle(),
     new Day03.Puzzle(),
     new Day04.Puzzle(),
