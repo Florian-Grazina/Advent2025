@@ -58,7 +58,6 @@ namespace Day03
                 foreach (string line in _input)
                 {
                     long result = GetResult(line);
-                    Console.WriteLine(result);
                     _result += result;
                 }
 
