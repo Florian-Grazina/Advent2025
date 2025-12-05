@@ -2,25 +2,106 @@
 
 namespace Day02
 {
-    public class Puzzle : IDayPuzzle
+    public class Puzzle : DayPuzzle
     {
-        public long SolvePart1()
+        private IEnumerable<ProductRange> _productRanges = [];
+
+        public override long SolvePart1()
         {
-            Part1Solver solver = new(GetInput());
-            return solver.Solve();
+            _productRanges = _input.Select(line => new ProductRange(line));
+            foreach (ProductRange productRange in _productRanges)
+            {
+                for (long i = productRange.IdStart; i <= productRange.IdEnd; i++)
+                {
+                    if (!IsValide(i))
+                        _result += i;
+                }
+            }
+            return _result;
         }
 
-        public long SolvePart2()
+        public override long SolvePart2()
         {
-            Part2Solver solver = new(GetInput());
-            return solver.Solve();
+            _productRanges = _input.Select(line => new ProductRange(line));
+
+            foreach (ProductRange productRange in _productRanges)
+            {
+                for (long i = productRange.IdStart; i <= productRange.IdEnd; i++)
+                    CheckValidity(i);
+            }
+            return _result;
         }
 
-        private static IEnumerable<string> GetInput()
+        private void CheckValidity(long input)
         {
-            var input = File.ReadAllText("../../../../Day02/input.txt");
-            var lines = input.Split("\r\n");
-            return lines.SelectMany(l => l.Split(",")).Where(data => !string.IsNullOrEmpty(data));
+            string inputStr = input.ToString();
+            int halfInputLength = inputStr.Length / 2;
+            int strLength = inputStr.Length;
+
+            if (strLength == 2 && inputStr[0] == inputStr[1])
+            {
+                _result += input;
+                return;
+            }
+
+
+            for (int block = halfInputLength; block >= 1; block--)
+            {
+                try
+                {
+                    if (strLength % block != 0)
+                        continue;
+
+                    string[] splits = SplitByNum(inputStr, block);
+                    string model = splits[0];
+
+                    bool isInvalide = splits.All(s => s == model);
+                    if (isInvalide)
+                    {
+                        _result += input;
+                        break;
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+        }
+
+
+        private string[] SplitByNum(string str, int block)
+        {
+            List<string> toReturn = [];
+
+            for (int i = 0; i < str.Length; i += block)
+            {
+                string toInput = string.Empty;
+
+                for (int y = 0; y < block; y++)
+                    toInput += str[i + y];
+
+                toReturn.Add(toInput);
+            }
+
+            return [.. toReturn];
+        }
+
+        private bool IsValide(long number)
+        {
+            string stringNumber = number.ToString();
+            int stringLength = stringNumber.Length;
+
+            if (stringLength % 2 == 1)
+                return true;
+
+            var start = stringNumber[(stringLength / 2)..];
+            var end = stringNumber[..(stringLength / 2)];
+
+            if (start == end)
+                return false;
+
+            return true;
         }
     }
 }

@@ -2,25 +2,106 @@
 
 namespace Day01
 {
-    public class Puzzle : IDayPuzzle
+    public class Puzzle : DayPuzzle
     {
-        public long SolvePart1()
+        public override long SolvePart1()
         {
-            Part1Solver solver = new (GetInput());
-            return solver.Solve();
+            int position = 50;
+
+            Queue<SafeCommand> commands = new(_input.Select(GetSafeCommand));
+
+            foreach (SafeCommand command in commands)
+            {
+                switch (command.Direction)
+                {
+                    case Direction.Left:
+                        position -= command.Steps;
+                        int turn = command.Steps / 100;
+
+                        position += turn * 100;
+                        if (position < 0)
+                            position += 100;
+                        break;
+
+                    case Direction.Right:
+                        position += command.Steps;
+                        turn = command.Steps / 100;
+
+                        position -= turn * 100;
+                        if (position >= 100)
+                            position -= 100;
+                        break;
+                }
+                if (position == 0)
+                    _result++;
+            }
+
+            //// 496 too low
+
+            return _result;
         }
 
-        public long SolvePart2()
+        private SafeCommand GetSafeCommand(string line)
         {
-            Part2Solver solver = new (GetInput());
-            return solver.Solve();
+            int steps = int.Parse(line[1..]);
+
+            Direction direction = line.First() switch
+            {
+                'L' => Direction.Left,
+                'R' => Direction.Right,
+                _ => throw new InvalidOperationException("Invalid direction"),
+            };
+
+            return new SafeCommand(direction, steps);
         }
 
-        private static IEnumerable<string> GetInput()
+        public override long SolvePart2()
         {
-            var input = File.ReadAllText("../../../../Day01/input.txt");
-            return input.Split("\r\n");
-        }
+            int position = 50;
 
+            Queue<SafeCommand> commands = new(_input.Select(GetSafeCommand));
+
+            foreach (SafeCommand command in commands)
+            {
+                switch (command.Direction)
+                {
+                    case Direction.Left:
+                        for (int i = 0; i < command.Steps; i++)
+                        {
+                            position--;
+
+                            if (position < 0)
+                                position = 99;
+
+                            if (position == 0)
+                                _result++;
+                        }
+                        break;
+
+                    case Direction.Right:
+                        for (int i = 0; i < command.Steps; i++)
+                        {
+                            position++;
+
+                            if (position == 100)
+                            {
+                                position = 0;
+                                _result++;
+                            }
+                        }
+                        break;
+                }
+
+
+                if (position < 0 || position >= 100)
+                    throw new InvalidOperationException("Position out of bounds");
+            }
+
+            // 3815 too low
+            // 6913 too high
+            // 6907
+
+            return _result;
+        }
     }
 }

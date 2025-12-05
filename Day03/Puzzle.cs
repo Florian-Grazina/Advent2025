@@ -1,27 +1,72 @@
 ﻿using Common;
-using static Day03.PartSolver;
 
 namespace Day03
 {
-    public class Puzzle : IDayPuzzle
+    public class Puzzle : DayPuzzle
     {
-        public long SolvePart1()
+        public override long SolvePart1()
         {
-            Part1Solver solver = new(GetInput());
-            return solver.Solve();
+            foreach (string line in _input)
+            {
+                int result = GetResultPart1(line);
+                _result += result;
+            }
+
+            return _result;
         }
 
-        public long SolvePart2()
+        public override long SolvePart2()
         {
-            Part2Solver solver = new(GetInput());
-            return solver.Solve();
+            foreach(string line in _input)
+                {
+                long result = GetResultPart2(line);
+                _result += result;
+            }
+
+            return _result;
+            // low 17039474866
         }
 
-        private static IEnumerable<string> GetInput()
+        private int GetResultPart1(string line)
         {
-            var input = File.ReadAllText("../../../../Day03/input.txt");
-            var lines = input.Split("\r\n");
-            return lines;
+            List<short> shorts = [.. line.ToArray().Select(c => short.Parse(c.ToString()))];
+
+            short highest = shorts.GetRange(0, shorts.Count - 1).Max();
+            int higestIndex = shorts.IndexOf(highest);
+
+            short secondHigest = 0;
+
+            for (int i = higestIndex + 1; i < shorts.Count; i++)
+            {
+                if (shorts[i] > secondHigest)
+                    secondHigest = shorts[i];
+            }
+
+            return highest * 10 + secondHigest;
+        }
+
+        private long GetResultPart2(string line)
+        {
+            int batteriesToTake = 12;
+
+            List<int> shorts = [.. line.ToArray().Select(c => short.Parse(c.ToString()))];
+            List<int> openedBatteries = [];
+
+            while (batteriesToTake > 0)
+            {
+                List<int> subShorts = shorts.GetRange(0, shorts.Count - batteriesToTake + 1);
+
+                int highest = subShorts.Max();
+                int highestIndex = subShorts.IndexOf(highest);
+
+                openedBatteries.Add(highest);
+                batteriesToTake--;
+
+                shorts.RemoveRange(0, highestIndex + 1);
+            }
+
+            string result = string.Join("", openedBatteries);
+            return long.Parse(result);
         }
     }
 }

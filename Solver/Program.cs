@@ -1,34 +1,49 @@
 ﻿using Common;
+using Solver;
 
 internal class Program
 {
+    private static List<LogDto> _logDtos = [];
+
     private static void Main(string[] args)
     {
-        List<IDayPuzzle> puzzles =
+        List<DayPuzzle> puzzles =
     [
     new Day01.Puzzle(),
-    //new Day02.Puzzle(),
+    new Day02.Puzzle(),
     new Day03.Puzzle(),
     new Day04.Puzzle(),
     ];
 
-        foreach (IDayPuzzle puzzle in puzzles)
+        GenerateLogDtos(puzzles);
+
+        foreach (LogDto puzzle in _logDtos)
         {
-            Console.WriteLine($"== {puzzle.GetType().FullName} ==");
-
-            LogPart("Part 1", puzzle.SolvePart1);
-            LogPart("Part 2", puzzle.SolvePart2);
-
-            Console.WriteLine();
+            _ = Task.Run(puzzle.Run1)
+                .ContinueWith(_ => Log());
+            _ = Task.Run(puzzle.Run2)
+                .ContinueWith(_ => Log());
         }
+        Console.ReadLine();
+    }
 
-        static void LogPart(string label, Func<long> solve)
+    private static void GenerateLogDtos(List<DayPuzzle> puzzles)
+    {
+        foreach (var puzzle in puzzles)
         {
-            var sw = System.Diagnostics.Stopwatch.StartNew();
-            long result = solve();
-            sw.Stop();
+            _logDtos.Add(new LogDto(puzzle));
+        }
+    }
 
-            Console.WriteLine($"{label}: {result}  (in {sw.ElapsedMilliseconds} ms)");
+    static void Log()
+    {
+        Console.Clear();
+        foreach (LogDto log in _logDtos)
+        {
+            Console.WriteLine($"== {log.Puzzle.GetType().FullName} ==");
+            Console.WriteLine($"Part1 : {log.Result1}  (in {log.Ms1} ms)");
+            Console.WriteLine($"Part2 : {log.Result2}  (in {log.Ms2} ms)");
+            Console.WriteLine();
         }
     }
 }
