@@ -6,5 +6,6 @@
   <Project Path="Day04/Day04.csproj" Id="b96afb39-8292-4cbb-9676-c903bc71d871" />
   <Project Path="Day05/Day05.csproj" Id="7cbdbdeb-5982-4c11-b400-8efb8e535315" />
   <Project Path="Day06/Day06.csproj" Id="209949e9-c829-4371-a45d-9969d598a664" />
+  <Project Path="Day07/Day07.csproj" Id="a17d120c-1860-45a8-9e4c-be725a68e691" />
   <Project Path="Solver/Solver.csproj" />
 </Solution>

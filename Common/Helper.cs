@@ -1,9 +1,9 @@
 ﻿
-namespace Day04
+namespace Common
 {
-    internal static class Helper
+    public static class Helper
     {
-        internal static char[,] GetMap(string[] input)
+        public static char[,] GetMap(string[] input)
         {
             int xSize = input.First().Length;
             int ySize = input.Length;
@@ -22,7 +22,18 @@ namespace Day04
             return map;
         }
 
-        internal static char[,] GetMapExtraLayer(string[] input)
+        public static IEnumerable<char> IterateMap(char[,] map)
+        {
+            for (int y = 0; y < map.GetLength(1); y++)
+            {
+                for (int x = 0; x < map.GetLength(0); x++)
+                {
+                    yield return map[x, y];
+                }
+            }
+        }
+
+        public static char[,] GetMapExtraLayer(string[] input)
         {
             int xSize = input.First().Length + 2;
             int ySize = input.Length + 2;
@@ -50,7 +61,7 @@ namespace Day04
             return map;
         }
 
-        internal static void PrintMap(char[,] map)
+        public static void PrintMap(char[,] map)
         {
             for (int y = 0; y < map.GetLength(1); y++)
             {
