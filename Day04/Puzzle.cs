@@ -11,6 +11,8 @@ namespace Day04
         {
             _map = Helper.GetMapExtraLayer(_input.ToArray());
 
+            long result = 0;
+
             for (int y = 0; y < _map.GetLength(1); y++)
             {
                 for (int x = 0; x < _map.GetLength(0); x++)
@@ -18,21 +20,22 @@ namespace Day04
                     if (CanPickUp(x, y))
                     {
                         _map[x, y] = '.';
-                        _result++;
+                        result++;
                     }
                 }
             }
 
-            return _result;
+            return result;
         }
 
         public override long SolvePart2()
         {
             _map = Helper.GetMapExtraLayer(_input.ToArray());
+            long result = 0;
 
             do
             {
-                _result = _newResult;
+                result = _newResult;
 
                 for (int y = 0; y < _map.GetLength(1); y++)
                 {
@@ -46,9 +49,9 @@ namespace Day04
                     }
                 }
             }
-            while (_result != _newResult);
+            while (result != _newResult);
 
-            return _result;
+            return result;
         }
 
         private bool CanPickUp(int x, int y)

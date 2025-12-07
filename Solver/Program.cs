@@ -1,28 +1,42 @@
 ﻿using Common;
 using Solver;
+using System.Collections.Concurrent;
 
 internal class Program
 {
     private static List<LogDto> _logDtos = [];
+    private static readonly BlockingCollection<Action> _logQueue = new();
 
     private static void Main(string[] args)
     {
+        Task.Run(() =>
+        {
+            foreach (var action in _logQueue.GetConsumingEnumerable())
+                action();
+        });
+
         List<DayPuzzle> puzzles =
     [
     new Day01.Puzzle(),
     new Day02.Puzzle(),
     new Day03.Puzzle(),
     new Day04.Puzzle(),
+    new Day05.Puzzle(),
+    new Day06.Puzzle(),
     ];
 
         GenerateLogDtos(puzzles);
 
         foreach (LogDto puzzle in _logDtos)
         {
-            _ = Task.Run(puzzle.Run1)
-                .ContinueWith(_ => Log());
-            _ = Task.Run(puzzle.Run2)
-                .ContinueWith(_ => Log());
+            _ = Task.Run(() =>
+            {
+                puzzle.Run1();
+                _logQueue.Add(Log);
+                puzzle.Run2();
+                _logQueue.Add(Log);
+            });
+
         }
         Console.ReadLine();
     }

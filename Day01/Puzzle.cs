@@ -7,6 +7,7 @@ namespace Day01
         public override long SolvePart1()
         {
             int position = 50;
+            long result = 0;
 
             Queue<SafeCommand> commands = new(_input.Select(GetSafeCommand));
 
@@ -33,12 +34,12 @@ namespace Day01
                         break;
                 }
                 if (position == 0)
-                    _result++;
+                    result++;
             }
 
             //// 496 too low
 
-            return _result;
+            return result;
         }
 
         private SafeCommand GetSafeCommand(string line)
@@ -58,6 +59,7 @@ namespace Day01
         public override long SolvePart2()
         {
             int position = 50;
+            long result = 0;
 
             Queue<SafeCommand> commands = new(_input.Select(GetSafeCommand));
 
@@ -74,7 +76,7 @@ namespace Day01
                                 position = 99;
 
                             if (position == 0)
-                                _result++;
+                                result++;
                         }
                         break;
 
@@ -86,7 +88,7 @@ namespace Day01
                             if (position == 100)
                             {
                                 position = 0;
-                                _result++;
+                                result++;
                             }
                         }
                         break;
@@ -101,7 +103,7 @@ namespace Day01
             // 6913 too high
             // 6907
 
-            return _result;
+            return result;
         }
     }
 }

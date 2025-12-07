@@ -6,24 +6,26 @@ namespace Day03
     {
         public override long SolvePart1()
         {
+            long result = 0;
+
             foreach (string line in _input)
             {
-                int result = GetResultPart1(line);
-                _result += result;
+                result += GetResultPart1(line);
             }
 
-            return _result;
+            return result;
         }
 
         public override long SolvePart2()
         {
-            foreach(string line in _input)
-                {
-                long result = GetResultPart2(line);
-                _result += result;
+            long result = 0;
+
+            foreach (string line in _input)
+            {
+                result += GetResultPart2(line);
             }
 
-            return _result;
+            return result;
             // low 17039474866
         }
 

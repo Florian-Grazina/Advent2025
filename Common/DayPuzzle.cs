@@ -3,7 +3,6 @@
     public abstract class DayPuzzle
     {
         protected string[] _input;
-        protected long _result = 0;
 
         protected DayPuzzle()
         {
@@ -17,8 +16,7 @@
         protected string[] GetInput()
         {
             var input = File.ReadAllText($"../../../../{Day}/input.txt");
-            var lines = input.Split("\r\n");
-            return [.. lines.SelectMany(l => l.Split(",")).Where(data => !string.IsNullOrEmpty(data))];
+            return input.Split("\r\n");
         }
     }
 }

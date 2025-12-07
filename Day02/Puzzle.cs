@@ -5,34 +5,40 @@ namespace Day02
     public class Puzzle : DayPuzzle
     {
         private IEnumerable<ProductRange> _productRanges = [];
-
         public override long SolvePart1()
         {
+            _input = [.. _input.SelectMany(l => l.Split(","))];
             _productRanges = _input.Select(line => new ProductRange(line));
+            
+            long result = 0;
+            
             foreach (ProductRange productRange in _productRanges)
             {
                 for (long i = productRange.IdStart; i <= productRange.IdEnd; i++)
                 {
                     if (!IsValide(i))
-                        _result += i;
+                        result += i;
                 }
             }
-            return _result;
+            return result;
         }
 
         public override long SolvePart2()
         {
+            _input = [.. _input.SelectMany(l => l.Split(","))];
             _productRanges = _input.Select(line => new ProductRange(line));
+
+            long result = 0;
 
             foreach (ProductRange productRange in _productRanges)
             {
                 for (long i = productRange.IdStart; i <= productRange.IdEnd; i++)
-                    CheckValidity(i);
+                    result += CheckValidity(i);
             }
-            return _result;
+            return result;
         }
 
-        private void CheckValidity(long input)
+        private long CheckValidity(long input)
         {
             string inputStr = input.ToString();
             int halfInputLength = inputStr.Length / 2;
@@ -40,8 +46,7 @@ namespace Day02
 
             if (strLength == 2 && inputStr[0] == inputStr[1])
             {
-                _result += input;
-                return;
+                return input;
             }
 
 
@@ -58,8 +63,7 @@ namespace Day02
                     bool isInvalide = splits.All(s => s == model);
                     if (isInvalide)
                     {
-                        _result += input;
-                        break;
+                        return input;
                     }
                 }
                 catch
@@ -67,6 +71,7 @@ namespace Day02
                     continue;
                 }
             }
+            return 0;
         }
 
 
