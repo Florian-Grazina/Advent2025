@@ -17,12 +17,12 @@ internal class Program
 
         List<DayPuzzle> puzzles =
     [
-    //new Day01.Puzzle(),
-    //new Day02.Puzzle(),
-    //new Day03.Puzzle(),
-    //new Day04.Puzzle(),
-    //new Day05.Puzzle(),
-    //new Day06.Puzzle(),
+    new Day01.Puzzle(),
+    new Day02.Puzzle(),
+    new Day03.Puzzle(),
+    new Day04.Puzzle(),
+    new Day05.Puzzle(),
+    new Day06.Puzzle(),
     new Day07.Puzzle(),
     ];
 
@@ -33,12 +33,11 @@ internal class Program
             _ = Task.Run(() =>
             {
                 puzzle.Run1();
-                _logQueue.Add(Log);
                 puzzle.Run2();
-                _logQueue.Add(Log);
             });
 
         }
+        Log();
         Console.ReadLine();
     }
 

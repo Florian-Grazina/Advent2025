@@ -18,7 +18,24 @@ namespace Common
                     map[x, y] = c;
                 }
             }
+            return map;
+        }
 
+        public static T[,] GetMap<T>(string[] input, Func<char, T> instantiate)
+        {
+            int xSize = input.First().Length;
+            int ySize = input.Length;
+
+            T[,] map = new T[xSize, ySize];
+
+            for (int y = 0; y < ySize; y++)
+            {
+                for (int x = 0; x < xSize; x++)
+                {
+                    char c = input[y][x];
+                    map[x, y] = instantiate(c);
+                }
+            }
             return map;
         }
 
@@ -62,6 +79,18 @@ namespace Common
         }
 
         public static void PrintMap(char[,] map)
+        {
+            for (int y = 0; y < map.GetLength(1); y++)
+            {
+                Console.WriteLine();
+                for (int x = 0; x < map.GetLength(0); x++)
+                {
+                    Console.Write(map[x, y]);
+                }
+            }
+        }
+
+        public static void PrintMap<T>(T[,] map)
         {
             for (int y = 0; y < map.GetLength(1); y++)
             {
