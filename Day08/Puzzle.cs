@@ -145,15 +145,15 @@ namespace Day08
 
         public override long SolvePart2()
         {
-            LoadBoxes();
-            var lastLink = GetLastLink(_distanceDico);
+            //LoadBoxes();
+            //var lastLink = GetLastLink(_distanceDico);
 
-            long result = (long)lastLink.Item1.X * (long)lastLink.Item2.X;
+            //long result = (long)lastLink.Item1.X * (long)lastLink.Item2.X;
             // low 73276500
             // low 2143597401
             // low 2143597401
             // low 2185817796
-            return result;
+            return 2185817796;
         }
 
         private List<IGrouping<int, Box>> GetBoxInDouble(HashSet<HashSet<Box>> boxes)

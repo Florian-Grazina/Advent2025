@@ -50,6 +50,18 @@ namespace Common
             }
         }
 
+        public static IEnumerable<(int, int)> FindItems(char[,] map, char toFind)
+        {
+            for (int y = 0; y < map.GetLength(1); y++)
+            {
+                for (int x = 0; x < map.GetLength(0); x++)
+                {
+                    if(map[x, y] == toFind)
+                        yield return (x, y);
+                }
+            }
+        }
+
         public static char[,] GetMapExtraLayer(string[] input)
         {
             int xSize = input.First().Length + 2;
